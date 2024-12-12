@@ -1,5 +1,4 @@
 <template>
-  <!-- <div :class="[!done ? 'todoItem' : 'doneItem']"> -->
   <div :class="['todoItem', statusClass]">
     <div class="content">
       <input type="checkbox" v-model="isChecked" class="checkbox" />
@@ -9,7 +8,6 @@
           <div class="description">{{ description }}</div>
         </div>
         <div class="block2">
-          <!-- <div class="status">Status: {{ status }}</div> -->
           <div class="status">
             <label for="status-select">Status:</label>
             <select

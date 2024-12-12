@@ -62,7 +62,7 @@ export default {
     return {
       taskName: "",
       taskDescription: "",
-      selectedDate: "", // Дата, выбранная пользователем
+      selectedDate: "",
       priorities: [
         { value: "low", label: "Low" },
         { value: "medium", label: "Medium" },
@@ -102,19 +102,18 @@ export default {
         .slice(0, 16)
         .replace("T", " ");
 
-      // Отправляем данные родительскому компоненту через событие
+      // передача данных родительскому компоненту через событие
       this.$emit("add-task", {
         id: Date.now(),
         name: this.taskName,
         description: this.taskDescription,
         done: false,
         time: currentTime,
-        status: this.selectedStatus,
-        priority: this.selectedPriority,
-        deadline: this.selectedDate,
+        status: this.Status,
+        priority: this.Priority,
+        deadline: this.Date,
       });
 
-      // Сбрасываем поля
       this.taskName = "";
       this.taskDescription = "";
       this.selectedStatus = "";

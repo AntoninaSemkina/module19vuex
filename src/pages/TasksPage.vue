@@ -16,6 +16,7 @@
         :deadline="ListItem.deadline"
         @remove="removeItem"
         @favorite="favoriteItem"
+        @update-status="updateItemStatus"
       />
     </div>
   </div>
@@ -30,9 +31,19 @@ export default {
   components: { TodoItem },
   computed: {
     ...mapState("todo", ["todoList"]), // Получаем список задач из Vuex
+    statusClass() {
+      return {
+        "new-task": this.status === "new",
+        "in-progress": this.status === "in process",
+        "need-validate": this.status === "need to validate",
+      };
+    },
   },
   methods: {
-    ...mapActions("todo", ["removeItem", "favoriteItem"]), // Методы для удаления и избранного
+    ...mapActions("todo", ["removeItem", "favoriteItem", "updateItemStatus"]), // Методы для удаления и избранного
+    updateStatus() {
+      this.$emit("update-status", { id: this.id, status: this.localStatus });
+    },
   },
 };
 </script>
@@ -56,5 +67,14 @@ h1 {
 
 .task-item {
   margin-bottom: 10px;
+}
+.new-task {
+  border-left: 5px solid darkblue;
+}
+.in-progress {
+  border-left: 5px solid orange;
+}
+.need-validate {
+  border-left: 5px solid darkgreen;
 }
 </style>

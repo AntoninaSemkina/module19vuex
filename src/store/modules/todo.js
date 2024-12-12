@@ -67,6 +67,12 @@ const mutations = {
       task.done = !task.done; // Изменяем состояние `done`
     }
   },
+  UPDATE_ITEM_STATUS(state, { id, status }) {
+    const task = state.todoList.find((item) => item.id === id);
+    if (task) {
+      task.status = status;
+    }
+  },
 };
 
 const actions = {
@@ -78,6 +84,9 @@ const actions = {
   },
   favoriteItem({ commit }, id) {
     commit("TOGGLE_FAVORITE", id);
+  },
+  updateItemStatus({ commit }, payload) {
+    commit("UPDATE_ITEM_STATUS", payload);
   },
 };
 
