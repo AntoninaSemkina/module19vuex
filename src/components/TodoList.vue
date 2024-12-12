@@ -2,8 +2,13 @@
   <div class="container">
     <textarea
       v-model="itemName"
-      class="text-input"
-      placeholder="add your new task to ToDoList..."
+      class="name-input"
+      placeholder="add name..."
+    ></textarea>
+    <textarea
+      v-model="itemDescription"
+      class="description-input"
+      placeholder="add description..."
     ></textarea>
     <button class="add-btn" @click="handleAddItem">Add</button>
 
@@ -11,6 +16,7 @@
       <TodoItem
         :id="ListItem.id"
         :name="ListItem.name"
+        :description="ListItem.description"
         :done="ListItem.done"
         :time="ListItem.time"
         @remove="removeItem"
@@ -30,6 +36,7 @@ export default {
   data() {
     return {
       itemName: "", // Локальное поле для новой задачи
+      itemDescription: "", // Локальное поле для новой задачи
     };
   },
   computed: {
@@ -47,9 +54,12 @@ export default {
           id: Date.now(), // Уникальный ID
           name: this.itemName,
           done: false,
+          description: this.itemDescription,
           time: currentTime,
         });
         this.itemName = ""; // Очистка поля
+
+        this.itemDescription = ""; // Очистка поля
       }
     },
   },
@@ -79,7 +89,22 @@ export default {
   transition: background 0.3s;
   margin: 20px;
 }
-.text-input {
+.name-input {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid darkgreen;
+  border-radius: 5px;
+  box-sizing: border-box;
+  resize: none;
+  overflow-y: auto;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  color: darkgreen;
+}
+.description-input {
   width: 100%;
   max-height: 500px;
   padding: 10px;

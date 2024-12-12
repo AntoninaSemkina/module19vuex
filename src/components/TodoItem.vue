@@ -4,6 +4,7 @@
       <input type="checkbox" v-model="isChecked" class="checkbox" />
       <div class="details">
         <div class="name">{{ name }}</div>
+        <div class="description">{{ description }}</div>
         <div class="time">Added on: {{ time }}</div>
       </div>
       <div class="actions">
@@ -19,7 +20,7 @@
 <script>
 export default {
   name: "TodoItem",
-  props: ["id", "name", "done", "time"],
+  props: ["id", "name", "done", "time", "description"],
   data() {
     return {
       isChecked: false, // Локальное состояние для чекбокса
@@ -62,7 +63,8 @@ export default {
   gap: 5px;
 }
 
-.name {
+.name,
+.description {
   min-height: 50px;
   max-height: 100px;
   overflow-y: auto;

@@ -1,10 +1,40 @@
 const state = {
   todoList: [
-    { id: 1, name: "name 1", done: false, time: "2024-12-09 10:15" },
-    { id: 2, name: "name 2", done: false, time: "2024-12-09 10:15" },
-    { id: 3, name: "name 3", done: false, time: "2024-12-09 10:15" },
-    { id: 4, name: "name 4", done: false, time: "2024-12-09 10:15" },
-    { id: 5, name: "name 5", done: false, time: "2024-12-09 10:15" },
+    {
+      id: 1,
+      name: "name 1",
+      description: "description 1",
+      done: false,
+      time: "2024-12-09 10:15",
+    },
+    {
+      id: 2,
+      name: "name 2",
+      description: "description 2",
+      done: false,
+      time: "2024-12-09 10:15",
+    },
+    {
+      id: 3,
+      name: "name 3",
+      description: "description 3",
+      done: false,
+      time: "2024-12-09 10:15",
+    },
+    {
+      id: 4,
+      name: "name 4",
+      description: "description 4",
+      done: false,
+      time: "2024-12-09 10:15",
+    },
+    {
+      id: 5,
+      name: "name 5",
+      description: "description 5",
+      done: false,
+      time: "2024-12-09 10:15",
+    },
   ],
   nextId: 6, // Счётчик для новых задач
 };
