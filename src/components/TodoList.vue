@@ -7,7 +7,10 @@
         :name="ListItem.name"
         :description="ListItem.description"
         :done="ListItem.done"
+        :status="ListItem.status"
+        :priority="ListItem.priority"
         :time="ListItem.time"
+        :deadline="ListItem.deadline"
         @remove="removeItem"
         @favorite="favoriteItem"
       />

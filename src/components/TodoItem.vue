@@ -1,10 +1,30 @@
 <template>
-  <div :class="[!done ? 'todoItem' : 'doneItem']">
+  <!-- <div :class="[!done ? 'todoItem' : 'doneItem']"> -->
+  <div :class="['todoItem', statusClass]">
     <div class="content">
       <input type="checkbox" v-model="isChecked" class="checkbox" />
       <div class="details">
-        <div class="name">{{ name }}</div>
-        <div class="description">{{ description }}</div>
+        <div class="block1">
+          <div class="name">{{ name }}</div>
+          <div class="description">{{ description }}</div>
+        </div>
+        <div class="block2">
+          <!-- <div class="status">Status: {{ status }}</div> -->
+          <div class="status">
+            <label for="status-select">Status:</label>
+            <select
+              id="status-select"
+              v-model="localStatus"
+              @change="updateStatus"
+            >
+              <option value="new">New Task</option>
+              <option value="in process">In Process</option>
+              <option value="need to validate">Need to Validate</option>
+            </select>
+          </div>
+          <div class="priority">Priority: {{ priority }}</div>
+          <div class="deadline">Deadline: {{ deadline }}</div>
+        </div>
         <div class="time">Added on: {{ time }}</div>
       </div>
       <div class="actions">
@@ -20,11 +40,35 @@
 <script>
 export default {
   name: "TodoItem",
-  props: ["id", "name", "done", "time", "description"],
+  props: [
+    "id",
+    "name",
+    "done",
+    "time",
+    "description",
+    "status",
+    "priority",
+    "deadline",
+  ],
   data() {
     return {
       isChecked: false, // Локальное состояние для чекбокса
+      localStatus: this.status,
     };
+  },
+  computed: {
+    statusClass() {
+      return {
+        "new-task": this.status === "new",
+        "in-progress": this.status === "in process",
+        "need-validate": this.status === "need to validate",
+      };
+    },
+  },
+  methods: {
+    updateStatus() {
+      this.$emit("update-status", { id: this.id, status: this.localStatus });
+    },
   },
 };
 </script>
@@ -42,7 +86,7 @@ export default {
 }
 
 .doneItem {
-  background: darkgreen;
+  background: orange;
 }
 
 .content {
@@ -102,5 +146,30 @@ export default {
 .favorite-btn {
   background: rgb(243, 130, 2);
   border: 1px solid rgb(243, 130, 2);
+}
+.block1 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.block2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.status,
+.deadline,
+.priority {
+  color: darkred;
+}
+.new-task {
+  border-left: 5px solid darkblue;
+}
+.in-progress {
+  border-left: 5px solid orange;
+}
+.need-validate {
+  border-left: 5px solid darkgreen;
 }
 </style>
