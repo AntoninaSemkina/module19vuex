@@ -1,11 +1,23 @@
 <template>
-  <div :class="['todoItem', statusClass]">
+  <div :class="['todoItem', statusClass, { doneItem: done }]">
     <div class="content">
       <input type="checkbox" v-model="isChecked" class="checkbox" />
       <div class="details">
         <div class="block1">
-          <div class="name">{{ name }}</div>
-          <div class="description">{{ description }}</div>
+          <div v-if="!isEditing" class="name">{{ name }}</div>
+          <input
+            v-else
+            v-model="editedTask.name"
+            class="name-edit"
+            placeholder="Edit name..."
+          />
+          <div v-if="!isEditing" class="description">{{ description }}</div>
+          <textarea
+            v-else
+            v-model="editedTask.description"
+            class="description-edit"
+            placeholder="Edit description..."
+          ></textarea>
         </div>
         <div class="block2">
           <div class="status">
@@ -26,10 +38,17 @@
         <div class="time">Added on: {{ time }}</div>
       </div>
       <div class="actions">
-        <button @click="$emit('remove', id)" class="delete-btn">Delete</button>
+        <button v-if="!isEditing" @click="startEdit" class="edit-btn">
+          Edit
+        </button>
+        <button v-else @click="saveEdit" class="save-btn">Save</button>
+        <button v-if="isEditing" @click="cancelEdit" class="cancel-btn">
+          Cancel
+        </button>
         <button @click="$emit('favorite', id)" class="favorite-btn">
           Favorite
         </button>
+        <button @click="$emit('remove', id)" class="delete-btn">Delete</button>
       </div>
     </div>
   </div>
@@ -50,8 +69,14 @@ export default {
   ],
   data() {
     return {
-      isChecked: false, // Локальное состояние для чекбокса
+      isChecked: false,
+      isEditing: false,
       localStatus: this.status,
+      editedTask: {
+        id: this.id,
+        name: this.name,
+        description: this.description,
+      },
     };
   },
   computed: {
@@ -66,6 +91,27 @@ export default {
   methods: {
     updateStatus() {
       this.$emit("update-status", { id: this.id, status: this.localStatus });
+    },
+    startEdit() {
+      this.isEditing = true;
+    },
+    saveEdit() {
+      this.isEditing = false;
+      this.$emit("edit", this.editedTask);
+    },
+    cancelEdit() {
+      this.isEditing = false;
+      this.editedTask = {
+        id: this.id,
+        name: this.name,
+        description: this.description,
+      };
+    },
+    toggleFavorite() {
+      console.log("Текущий ID:", this.id);
+      console.log("Статус done до изменения:", this.done);
+      this.$emit("favorite", this.id);
+      console.log("Событие отправлено");
     },
   },
 };
@@ -131,7 +177,8 @@ export default {
 }
 
 .delete-btn,
-.favorite-btn {
+.favorite-btn,
+.edit-btn {
   width: 100px;
   height: 40px;
   background: darkred;
@@ -144,6 +191,26 @@ export default {
 .favorite-btn {
   background: rgb(243, 130, 2);
   border: 1px solid rgb(243, 130, 2);
+}
+.edit-btn {
+  background: darkgreen;
+  border: 1px solid darkgreen;
+}
+.save-btn,
+.cancel-btn {
+  width: 100px;
+  height: 20px;
+  background: darkgreen;
+  color: antiquewhite;
+  border: 1px solid darkgreen;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.cancel-btn {
+  background: darkred;
+  color: antiquewhite;
+  border: 1px solid darkred;
 }
 .block1 {
   display: flex;
@@ -169,5 +236,12 @@ export default {
 }
 .need-validate {
   border-left: 5px solid darkgreen;
+}
+.favorite {
+  background: orange; /* Фон задачи меняется на оранжевый */
+  border-left: 5px solid rgb(243, 130, 2);
+}
+.doneItem {
+  background: orange; /* Цвет для задач с состоянием done */
 }
 </style>

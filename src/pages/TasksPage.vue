@@ -2,7 +2,7 @@
   <div class="tasks-container">
     <h1>My tasks</h1>
     <div v-if="todoList.length === 0" class="empty-state">
-      you don't have tasks! Create new tasks!
+      You don't have tasks! Create new tasks!
     </div>
     <div v-for="ListItem in todoList" :key="ListItem.id" class="task-item">
       <TodoItem
@@ -17,6 +17,7 @@
         @remove="removeItem"
         @favorite="favoriteItem"
         @update-status="updateItemStatus"
+        @edit="editTask"
       />
     </div>
   </div>
@@ -40,9 +41,21 @@ export default {
     },
   },
   methods: {
-    ...mapActions("todo", ["removeItem", "favoriteItem", "updateItemStatus"]), // Методы для удаления и избранного
+    ...mapActions("todo", [
+      "removeItem",
+      "favoriteItem",
+      "updateItemStatus",
+      "editTask",
+    ]),
     updateStatus() {
       this.$emit("update-status", { id: this.id, status: this.localStatus });
+    },
+    handleEdit(updatedTask) {
+      this.editTask(updatedTask);
+    },
+    favoriteItem(id) {
+      console.log("Favorite triggered for ID:", id);
+      this.$store.dispatch("todo/favoriteItem", id);
     },
   },
 };
@@ -59,10 +72,14 @@ h1 {
 }
 
 .empty-state {
+  background: #fff;
+  border-radius: 10px;
+  width: 80%;
   text-align: center;
-  color: gray;
-  font-size: 18px;
-  margin: 20px 0;
+  color: darkred;
+  font-size: 28px;
+  font-weight: 600;
+  margin: auto;
 }
 
 .task-item {

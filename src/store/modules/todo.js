@@ -61,10 +61,18 @@ const mutations = {
   REMOVE_ITEM(state, id) {
     state.todoList = state.todoList.filter((item) => item.id !== id);
   },
+  UPDATE_TASK(state, updatedTask) {
+    const index = state.todoList.findIndex(
+      (task) => task.id === updatedTask.id
+    );
+    if (index !== -1) {
+      state.todoList[index] = { ...state.todoList[index], ...updatedTask };
+    }
+  },
   TOGGLE_FAVORITE(state, id) {
     const task = state.todoList.find((item) => item.id === id);
     if (task) {
-      task.done = !task.done; // Изменяем состояние `done`
+      task.done = !task.done; // Инвертируем свойство `done`
     }
   },
   UPDATE_ITEM_STATUS(state, { id, status }) {
@@ -83,10 +91,13 @@ const actions = {
     commit("REMOVE_ITEM", id);
   },
   favoriteItem({ commit }, id) {
-    commit("TOGGLE_FAVORITE", id);
+    commit("TOGGLE_FAVORITE", id); // Вызываем мутацию
   },
   updateItemStatus({ commit }, payload) {
     commit("UPDATE_ITEM_STATUS", payload);
+  },
+  editTask({ commit }, updatedTask) {
+    commit("UPDATE_TASK", updatedTask);
   },
 };
 

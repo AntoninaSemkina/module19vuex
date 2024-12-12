@@ -13,6 +13,8 @@
         :deadline="ListItem.deadline"
         @remove="removeItem"
         @favorite="favoriteItem"
+        @update-status="updateItemStatus"
+        @edit="handleEdit"
       />
     </div>
   </div>
