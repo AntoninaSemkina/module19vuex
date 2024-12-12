@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="container">
     <textarea
       v-model="itemName"
@@ -64,8 +64,39 @@ export default {
     },
   },
 };
-</script>
+</script> -->
+<template>
+  <div>
+    <h1>Мои задачи</h1>
+    <div class="tasks" v-for="ListItem in todoList" :key="ListItem.id">
+      <TodoItem
+        :id="ListItem.id"
+        :name="ListItem.name"
+        :description="ListItem.description"
+        :done="ListItem.done"
+        :time="ListItem.time"
+        @remove="removeItem"
+        @favorite="favoriteItem"
+      />
+    </div>
+  </div>
+</template>
 
+<script>
+import { mapActions, mapState } from "vuex";
+import TodoItem from "./TodoItem.vue";
+
+export default {
+  name: "TodoList",
+  components: { TodoItem },
+  computed: {
+    ...mapState("todo", ["todoList"]),
+  },
+  methods: {
+    ...mapActions("todo", ["removeItem", "favoriteItem"]),
+  },
+};
+</script>
 <style scoped>
 .container {
   display: flex;

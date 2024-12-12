@@ -1,16 +1,37 @@
 <template>
   <div id="app">
-    <h1>ToDoList</h1>
-    <TodoList />
+    <nav>
+      <router-link to="/">My tasks</router-link>
+      <router-link to="/create">Create new Task</router-link>
+      <router-link to="/settings">Settings</router-link>
+    </nav>
+    <router-view />
   </div>
 </template>
 
-<script setup>
-import TodoList from "./components/TodoList.vue";
+<script>
+export default {
+  name: "App",
+};
 </script>
+
 <style scoped>
-h1 {
-  margin: 20px 0 20px 20px;
+nav {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 15px;
+  background: #f4f4f4;
+  padding: 10px;
+}
+
+nav a {
+  text-decoration: none;
   color: darkgreen;
+  font-weight: bold;
+}
+
+nav a.router-link-active {
+  color: darkblue;
 }
 </style>
