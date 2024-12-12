@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Сreate task</h1>
     <TaskForm @add-task="addTask" />
   </div>
@@ -20,3 +20,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h1 {
+  color: darkred;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 90%;
+}
+</style>

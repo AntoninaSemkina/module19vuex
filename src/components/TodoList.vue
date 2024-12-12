@@ -1,73 +1,6 @@
-<!-- <template>
-  <div class="container">
-    <textarea
-      v-model="itemName"
-      class="name-input"
-      placeholder="add name..."
-    ></textarea>
-    <textarea
-      v-model="itemDescription"
-      class="description-input"
-      placeholder="add description..."
-    ></textarea>
-    <button class="add-btn" @click="handleAddItem">Add</button>
-
-    <div class="tasks" v-for="ListItem in todoList" :key="ListItem.id">
-      <TodoItem
-        :id="ListItem.id"
-        :name="ListItem.name"
-        :description="ListItem.description"
-        :done="ListItem.done"
-        :time="ListItem.time"
-        @remove="removeItem"
-        @favorite="favoriteItem"
-      />
-    </div>
-  </div>
-</template>
-
-<script>
-import { mapActions, mapState } from "vuex";
-import TodoItem from "./TodoItem.vue";
-
-export default {
-  name: "TodoList",
-  components: { TodoItem },
-  data() {
-    return {
-      itemName: "", // Локальное поле для новой задачи
-      itemDescription: "", // Локальное поле для новой задачи
-    };
-  },
-  computed: {
-    ...mapState("todo", ["todoList"]),
-  },
-  methods: {
-    ...mapActions("todo", ["addItem", "removeItem", "favoriteItem"]),
-    handleAddItem() {
-      if (this.itemName.trim() !== "") {
-        const currentTime = new Date()
-          .toISOString()
-          .slice(0, 16)
-          .replace("T", " ");
-        this.addItem({
-          id: Date.now(), // Уникальный ID
-          name: this.itemName,
-          done: false,
-          description: this.itemDescription,
-          time: currentTime,
-        });
-        this.itemName = ""; // Очистка поля
-
-        this.itemDescription = ""; // Очистка поля
-      }
-    },
-  },
-};
-</script> -->
 <template>
   <div>
-    <h1>Мои задачи</h1>
+    <h1>My Tasks</h1>
     <div class="tasks" v-for="ListItem in todoList" :key="ListItem.id">
       <TodoItem
         :id="ListItem.id"
@@ -112,9 +45,9 @@ export default {
 .add-btn {
   width: 100px;
   height: 40px;
-  background: darkgreen;
+  background: darkred;
   color: aliceblue;
-  border: 1px solid darkgreen;
+  border: 1px solid darkred;
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s;
@@ -124,7 +57,7 @@ export default {
   width: 100%;
   height: 50px;
   padding: 10px;
-  border: 1px solid darkgreen;
+  border: 1px solid darkred;
   border-radius: 5px;
   box-sizing: border-box;
   resize: none;
@@ -133,13 +66,13 @@ export default {
   font-size: 16px;
   line-height: 1.5;
   white-space: pre-wrap;
-  color: darkgreen;
+  color: darkred;
 }
 .description-input {
   width: 100%;
   max-height: 500px;
   padding: 10px;
-  border: 1px solid darkgreen;
+  border: 1px solid darkred;
   border-radius: 5px;
   box-sizing: border-box;
   resize: none;
@@ -148,6 +81,6 @@ export default {
   font-size: 16px;
   line-height: 1.5;
   white-space: pre-wrap;
-  color: darkgreen;
+  color: darkred;
 }
 </style>

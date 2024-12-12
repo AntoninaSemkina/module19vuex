@@ -35,6 +35,9 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  color: darkred;
+}
 .tasks-container {
   padding: 20px;
   max-width: 800px;

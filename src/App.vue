@@ -16,6 +16,14 @@ export default {
 </script>
 
 <style scoped>
+#app {
+  height: 100vh; /* Занимает весь экран */
+  background-image: url("/src/assets/background-7123020_1920.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
 nav {
   display: flex;
   width: 100%;
@@ -27,7 +35,7 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: darkgreen;
+  color: darkred;
   font-weight: bold;
 }
 

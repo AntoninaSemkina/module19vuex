@@ -63,28 +63,24 @@ export default {
 .description-input {
   width: 100%;
   padding: 10px;
-  border: 1px solid darkgreen;
+  border: 1px solid darkred;
   border-radius: 5px;
   box-sizing: border-box;
   resize: none;
   font-family: inherit;
   font-size: 16px;
   line-height: 1.5;
-  color: darkgreen;
+  color: darkred;
 }
 
 .add-btn {
   width: 150px;
   height: 40px;
-  background: darkgreen;
+  background: darkred;
   color: aliceblue;
-  border: 1px solid darkgreen;
+  border: 1px solid darkred;
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s;
-}
-
-.add-btn:hover {
-  background: lightgreen;
 }
 </style>
