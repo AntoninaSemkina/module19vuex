@@ -63,6 +63,8 @@ export default {
       taskName: "",
       taskDescription: "",
       selectedDate: "",
+      selectedStatus: "",
+      selectedPriority: "",
       priorities: [
         { value: "low", label: "Low" },
         { value: "medium", label: "Medium" },
@@ -109,9 +111,9 @@ export default {
         description: this.taskDescription,
         done: false,
         time: currentTime,
-        status: this.Status,
-        priority: this.Priority,
-        deadline: this.Date,
+        status: this.selectedStatus,
+        priority: this.selectedPriority,
+        deadline: this.selectedDate,
       });
 
       this.taskName = "";

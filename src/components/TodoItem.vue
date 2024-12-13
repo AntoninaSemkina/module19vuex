@@ -237,11 +237,7 @@ export default {
 .need-validate {
   border-left: 5px solid darkgreen;
 }
-.favorite {
-  background: orange; /* Фон задачи меняется на оранжевый */
-  border-left: 5px solid rgb(243, 130, 2);
-}
 .doneItem {
-  background: orange; /* Цвет для задач с состоянием done */
+  background: orange;
 }
 </style>
