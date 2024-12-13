@@ -41,6 +41,9 @@
         <button v-if="!isEditing" @click="startEdit" class="edit-btn">
           Edit
         </button>
+        <!-- <button v-if="!isEditing" @click="checkEditPermission" class="edit-btn">
+          Edit
+        </button> -->
         <button v-else @click="saveEdit" class="save-btn">Save</button>
         <button v-if="isEditing" @click="cancelEdit" class="cancel-btn">
           Cancel
@@ -89,11 +92,25 @@ export default {
     },
   },
   methods: {
+    // checkEditPermission() {
+    //   const userRole = this.$store.state.userRole; // Пример получения роли пользователя из Vuex
+    //   if (userRole === "admin" || userRole === "editor") {
+    //     this.startEdit();
+    //   } else {
+    //     alert("You don't have permission to edit this task.");
+    //   }
+    // },
     updateStatus() {
       this.$emit("update-status", { id: this.id, status: this.localStatus });
     },
     startEdit() {
-      this.isEditing = true;
+      const password = prompt("Enter admin password to edit this task:");
+      if (password === "admin") {
+        this.isEditing = true;
+        alert("Password correct. You can edit the task now.");
+      } else {
+        alert("Incorrect password. Editing not allowed.");
+      }
     },
     saveEdit() {
       this.isEditing = false;
