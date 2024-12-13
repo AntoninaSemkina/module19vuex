@@ -54,7 +54,7 @@ export const fetchTasks = () =>
   new Promise((resolve) => {
     setTimeout(() => {
       resolve(mockData);
-    }, 1000); // Симуляция задержки 1 секунда
+    }, 1000);
   });
 
 export const saveTask = (task) =>

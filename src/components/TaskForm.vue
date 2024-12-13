@@ -104,7 +104,6 @@ export default {
         .slice(0, 16)
         .replace("T", " ");
 
-      // передача данных родительскому компоненту через событие
       this.$emit("add-task", {
         id: Date.now(),
         name: this.taskName,
