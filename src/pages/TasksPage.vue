@@ -1,65 +1,3 @@
-<!-- <template>
-  <div class="tasks-container">
-    <h1>My tasks</h1>
-    <div v-if="todoList.length === 0" class="empty-state">
-      You don't have tasks! Create new tasks!
-    </div>
-    <div v-for="ListItem in todoList" :key="ListItem.id" class="task-item">
-      <TodoItem
-        :id="ListItem.id"
-        :name="ListItem.name"
-        :description="ListItem.description"
-        :done="ListItem.done"
-        :status="ListItem.status"
-        :priority="ListItem.priority"
-        :time="ListItem.time"
-        :deadline="ListItem.deadline"
-        @remove="removeItem"
-        @favorite="favoriteItem"
-        @update-status="updateItemStatus"
-        @edit="editTask"
-      />
-    </div>
-  </div>
-</template>
-
-<script>
-import { mapState, mapActions } from "vuex";
-import TodoItem from "../components/TodoItem.vue";
-
-export default {
-  name: "TasksPage",
-  components: { TodoItem },
-  computed: {
-    ...mapState("todo", ["todoList"]), // Получаем список задач из Vuex
-    statusClass() {
-      return {
-        "new-task": this.status === "new",
-        "in-progress": this.status === "in process",
-        "need-validate": this.status === "need to validate",
-      };
-    },
-  },
-  methods: {
-    ...mapActions("todo", [
-      "removeItem",
-      "favoriteItem",
-      "updateItemStatus",
-      "editTask",
-    ]),
-    updateStatus() {
-      this.$emit("update-status", { id: this.id, status: this.localStatus });
-    },
-    handleEdit(updatedTask) {
-      this.editTask(updatedTask);
-    },
-    favoriteItem(id) {
-      console.log("Favorite triggered for ID:", id);
-      this.$store.dispatch("todo/favoriteItem", id);
-    },
-  },
-};
-</script> -->
 <template>
   <div class="tasks-container">
     <h1>My tasks</h1>
@@ -111,7 +49,16 @@ export default {
     ]),
   },
   mounted() {
-    this.loadTasks(); // Загрузка задач при монтировании
+    this.loadTasks();
+  },
+  beforeCreate() {
+    // Динамическая регистрация модуля Vuex
+    if (!this.$store.hasModule("todo")) {
+      import("../store/modules/todo").then((todoModule) => {
+        this.$store.registerModule("todo", todoModule.default);
+        this.loadTasks();
+      });
+    }
   },
 };
 </script>

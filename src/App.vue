@@ -12,12 +12,15 @@
 <script>
 export default {
   name: "App",
+  mounted() {
+    console.log("App mounted");
+  },
 };
 </script>
 
 <style scoped>
 #app {
-  height: 100vh; /* Занимает весь экран */
+  height: 100vh;
   background-image: url("/src/assets/background-7123020_1920.jpg");
   background-size: cover;
   background-repeat: no-repeat;
